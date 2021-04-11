@@ -1,0 +1,321 @@
+﻿@model ProductDetailViewModel 
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="breadcrumb-area gray-bg-7">
+        <div class="container">
+            <div class="breadcrumb-content">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li class="active">Laptop & Computer </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="product-details pt-65 pb-65">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <div class="product-details-img">
+                        @{
+                            ProductPhoto poster = Model.Product.ProductPhotos.OrderBy(x => x.Order).FirstOrDefault();
+                        }
+                        @if (poster != null)
+                        {
+                            <img class="zoompro" src="~/uploads/products/@poster.Name" data-zoom-image="../../uploads/products/@poster.Name" alt="zoom" />
+                        }
+                        <div id="gallery" class="mt-20 product-dec-slider owl-carousel">
+                            @foreach (var photo in Model.Product.ProductPhotos)
+                            {
+                                <a data-image="../../uploads/products/@photo.Name" data-zoom-image="../../uploads/products/@photo.Name">
+                                    <img style="max-width:108px;" src="~/uploads/products/@photo.Name" alt="">
+                                </a>
+                            }
+                        </div>
+                        @if (Model.Product.DiscountPercent > 0)
+                        {
+                            <span>-@Model.Product.DiscountPercent %</span>
+
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="product-details-content">
+                        <h4>@Model.Product.Name</h4>
+                        <div class="rating-review">
+                            <div class="pro-dec-rating">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= Model.Product.Rate)
+                                    {
+                                        <i class="ion-android-star-outline theme-star"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="ion-android-star-outline"></i>
+                                    }
+                                }
+                            </div>
+                            <div class="pro-dec-review">
+                                <ul>
+                                    <li>@Model.Product.ProductReviews.Count() Reviews </li>
+                                    <li> Add Your Reviews</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <span>$ @Model.Product.DiscountedPrice</span>
+                        <div class="in-stock">
+                            <p>Available: <span>@(Model.Product.IsAvailable?"In stock":"out stock")</span></p>
+                        </div>
+                        <p>@Model.Product.InfoText</p>
+                        <div class="pro-dec-feature">
+                            <ul>
+                                <li><input type="checkbox"> Protection Plan: <span> 2 year  $4.99</span></li>
+                                <li><input type="checkbox"> Remote Holder: <span> $9.99</span></li>
+                                <li><input type="checkbox"> Koral Alexa Voice Remote Case: <span> Red  $16.99</span></li>
+                                <li><input type="checkbox"> Amazon Basics HD Antenna: <span>25 Mile  $14.99</span></li>
+                            </ul>
+                        </div>
+                        <div class="quality-add-to-cart">
+                            <form method="post" asp-action="create" asp-controller="order">
+                                <input type="hidden" name="ProductId" value="@Model.Product.Id" />
+                                <div class="quality">
+                                    <label>Qty:</label>
+                                    <input class="cart-plus-minus-box" type="text" name="count" value="1">
+                                </div>
+                                <div class="product-action">
+                                    <button type="submit" class="action-cart" title="Add To Cart" > Buy </button>
+                                    <a class="same-action" title="Wishlist" href="#">
+                                        <i class="fa fa-heart-o"></i>
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="pro-dec-categories">
+                            <ul>
+                                <li><a href="#">Category: @Model.Product.Category.Name</a></li>
+                            </ul>
+                        </div>
+                        <div class="pro-dec-categories">
+                            <ul>
+                                <li class="categories-title">Tags: </li>
+
+                                @foreach (var prTag in Model.Product.ProductTags)
+                                {
+                                    <li><a href="#">@prTag.Tag.Name,</a></li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="pro-dec-social">
+                            <ul>
+                                <li><a class="tweet" href="#"><i class="ion-social-twitter"></i> Tweet</a></li>
+                                <li><a class="share" href="#"><i class="ion-social-facebook"></i> Share</a></li>
+                                <li><a class="google" href="#"><i class="ion-social-googleplus-outline"></i> Google+</a></li>
+                                <li><a class="pinterest" href="#"><i class="ion-social-pinterest"></i> Pinterest</a></li>
+                            </ul>
+                        </div>
+                        <div class="pro-dec-btn">
+                            <a href="#"><i class="fa fa-angle-left"></i></a>
+                            <a href="#"><i class="fa fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="description-review-area pt-25 pb-70">
+        <div class="container">
+            <div class="description-review-wrapper">
+                <div class="description-review-topbar nav text-center">
+                    <a class="active" data-toggle="tab" href="#des-details1">Description</a>
+                    <a data-toggle="tab" href="#des-details2">Tags</a>
+                    <a data-toggle="tab" href="#des-details3">Review</a>
+                </div>
+                <div class="tab-content description-review-bottom">
+                    <div id="des-details1" class="tab-pane active">
+
+                        <div class="product-description-wrapper">
+                           @Html.Raw(Model.Product.Desc)
+                        </div>
+                    </div>
+                    <div id="des-details2" class="tab-pane">
+                        <div class="product-anotherinfo-wrapper">
+                            <ul>
+                                <li><span>Tags:</span></li>
+
+                                @foreach (var prTag in Model.Product.ProductTags)
+                                {
+                                    <li><a href="#">@prTag.Tag.Name,</a></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="des-details3" class="tab-pane">
+                        <div class="rattings-wrapper">
+                            @foreach (var review in Model.Product.ProductReviews)
+                            {
+                                <div class="sin-rattings">
+                                    <div class="star-author-all">
+                                        <div class="ratting-star f-left">
+                                            @for (int i=0; i<review.Rate;i++)
+                                            {
+                                                <i class="ion-star theme-color"></i>
+                                            }
+                                            <span>(@review.Rate)</span>
+                                        </div>
+                                        <div class="ratting-author f-right">
+                                            <h3>@review.FullName</h3>
+                                            <span>@review.CreatedAt.AddHours(4).ToString("HH:mm")</span>
+                                            <span>@review.CreatedAt.AddHours(4).ToString("dd MMMM yyy")</span>
+                                        </div>
+                                    </div>
+                                    <p>@review.Message</p>
+                                </div>
+                            }
+
+                        </div>
+                        <div class="ratting-form-wrapper">
+                            <h3>Add your Comments :</h3>
+                            <div class="ratting-form">
+                                <form asp-action="review" method="post">
+                                    <input type="hidden" name="productId" value="@Model.Product.Id" />
+                                    <div class="star-box">
+                                        <h2>Rating:</h2>
+                                        <div class="rating">
+                                            <label>
+                                                <input type="radio" name="rate" value="1" />
+                                                <span class="icon">★</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="rate" value="2" />
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="rate" value="3" />
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="rate" value="4" />
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="rate" value="5" />
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                                <span class="icon">★</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="rating-form-style mb-20">
+                                                <input name="fullName" placeholder="Name" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="rating-form-style mb-20">
+                                                <input name="email" placeholder="Email" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="rating-form-style form-submit">
+                                                <textarea name="message" placeholder="Message"></textarea>
+                                                <input  type="submit" value="add review">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="product-area pb-45">
+        <div class="container">
+            <div class="section-border mb-10">
+                <h4 class="section-title section-bg-white">Related Products</h4>
+            </div>
+            <div class="product-slider-nav nav-style"></div>
+            <div class="headphone-slider-active product-slider owl-carousel nav-style">
+                @foreach (var item in Model.RelatedProducts)
+                {
+                    ProductPhoto itemProster = item.ProductPhotos.OrderBy(x => x.Order).FirstOrDefault();
+
+                    <div class="devita-product-2">
+                        <div class="product-img">
+                            <a href="product-details.html">
+                                @if (itemProster != null)
+                                {
+                                    <img src="~/uploads/products/@itemProster.Name" alt="">
+                                }
+                                @if (item.DiscountPercent > 0)
+                                {
+                                    <span>-@item.DiscountPercent %</span>
+                                }
+                            </a>
+                        </div>
+                        <div class="list-col">
+                            <div class="gridview">
+                                <div class="product-content text-center">
+                                    @{ 
+                                        string itemPrtags = "";
+                                        foreach (var itemPrTag in item.ProductTags)
+                                        {
+                                            itemPrtags += itemPrTag.Tag.Name + ",";
+                                        }
+                                    }
+                                    
+                                    <span>
+                                        @itemPrtags
+                                    </span>
+                                    <h4><a href="product-details.html">@item.Name</a></h4>
+                                    <div class="product-price-wrapper">
+                                        <span>$@item.DiscountedPrice</span>
+                                    </div>
+                                </div>
+                                <div class="product-action-wrapper-2 text-center">
+                                    <div class="product-rating">
+                                        <i class="ion-android-star-outline theme-star"></i>
+                                        <i class="ion-android-star-outline theme-star"></i>
+                                        <i class="ion-android-star-outline theme-star"></i>
+                                        <i class="ion-android-star-outline theme-star"></i>
+                                        <i class="ion-android-star-outline"></i>
+                                    </div>
+                                    <p> @item.InfoText</p>
+                                    <div class="product-action">
+                                        <a class="same-action" title="Wishlist" href="#">
+                                            <i class="fa fa-heart-o"></i>
+                                        </a>
+                                        <a class="action-cart" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                            Add to Cart
+                                        </a>
+                                        <a class="same-action compare-mrg" data-target="#exampleCompare" data-toggle="modal" title="Compare" href="#">
+                                            <i class="fa fa-sliders fa-rotate-90"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                        }
+
+            </div>
+        </div>
+    </div>
+
+@section Scripts{ 
+   
+}
+   

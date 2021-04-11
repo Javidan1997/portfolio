@@ -1,0 +1,121 @@
+﻿@model Course
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+
+    List<Category> categories = ViewBag.Categories;
+    List<Tag> tags = ViewBag.Tags;
+}
+
+<h1>Create</h1>
+<div class="container-fluid">
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="@Model.Title"></label>
+                <input class="form-control" asp-for="@Model.Title">
+                <span asp-validation-for="@Model.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="@Model.SkillLevel"></label>
+                <input class="form-control" asp-for="@Model.SkillLevel">
+                <span asp-validation-for="@Model.SkillLevel" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label asp-for="@Model.Price"></label>
+                <input class="form-control" asp-for="@Model.Price">
+                <span asp-validation-for="@Model.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-2">
+                <label asp-for="@Model.StudentCount"></label>
+                <input class="form-control" asp-for="@Model.StudentCount">
+                <span asp-validation-for="@Model.StudentCount" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-2">
+                <label asp-for="@Model.StartDate"></label>
+                <input class="form-control" asp-for="@Model.StartDate">
+                <span asp-validation-for="@Model.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-3">
+                <label asp-for="@Model.Duration"></label>
+                <input class="form-control" asp-for="@Model.Duration">
+                <span asp-validation-for="@Model.Duration" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-3">
+                <label asp-for="@Model.CourseHours"></label>
+                <input class="form-control" asp-for="@Model.CourseHours">
+                <span asp-validation-for="@Model.CourseHours" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label asp-for="@Model.CategoryId">Category</label>
+                <select asp-for="@Model.CategoryId" asp-items="@(new SelectList(categories,"Id","Name"))" class="form-control">
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="TagIds">Tags</label>
+                <select name="TagIds" multiple class="form-control">
+                    @foreach (var tag in tags)
+                    {
+                        if (Model.CourseTags.Any(x => x.TagId == tag.Id))
+                        {
+                            <option selected value="@tag.Id">@tag.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@tag.Id">@tag.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+      
+      
+        <div class="form-group col-md-12">
+            <label asp-for="@Model.Language"></label>
+            <textarea class="form-control" asp-for="@Model.Language"></textarea>
+            <span asp-validation-for="@Model.Language" rows="3" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-12">
+            <label asp-for="@Model.Desc"></label>
+            <textarea class="form-control" asp-for="@Model.Desc" rows="5"></textarea>
+            <span asp-validation-for="@Model.Desc" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-12">
+            <label asp-for="@Model.File"></label>
+            <input class="form-control" asp-for="@Model.File">
+            <span asp-validation-for="@Model.File" class="text-danger"></span>
+        </div>
+
+
+
+
+        <button type="submit" class="btn btn-primary">Edit</button>
+    </form>
+</div>
+
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(document).on("click", ".removePhoto", function () {
+                $(this).parent().empty()
+            })
+        })
+    </script>
+
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor 4
+        // instance, using default configuration.
+        CKEDITOR.replace('Desc');
+    </script>
+}

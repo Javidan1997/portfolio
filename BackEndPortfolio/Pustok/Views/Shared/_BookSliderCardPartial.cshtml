@@ -1,0 +1,58 @@
+﻿@model List<Book>
+@foreach (var item in Model)
+{
+    BookPhoto poster = item.BookPhotos.FirstOrDefault(x => x.PosterStatus == true);
+    BookPhoto hoverPoster = item.BookPhotos.FirstOrDefault(x => x.PosterStatus == false);
+
+    <div class="single-slide">
+        <div class="product-card">
+            <div class="product-header">
+                <a href="#" class="author">
+                    @item.Author.Fullname.Split(" ")[1]
+                </a>
+                <h3>
+                    <a href="product-details.html">
+                        @item.Name
+                    </a>
+                </h3>
+            </div>
+            <div class="product-card--body">
+                <div class="card-image">
+                    <img src="~/assets/image/products/@(poster==null?"":poster.Name)" alt="">
+                    <div class="hover-contents">
+                        <a href="product-details.html" class="hover-image">
+                            <img src="~/assets/image/products/@(hoverPoster==null?"":hoverPoster.Name)" alt="">
+                        </a>
+                        <div class="hover-btns">
+                            <a href="cart.html" class="single-btn">
+                                <i class="fas fa-shopping-basket"></i>
+                            </a>
+                            <a href="wishlist.html" class="single-btn">
+                                <i class="fas fa-heart"></i>
+                            </a>
+                            <a href="compare.html" class="single-btn">
+                                <i class="fas fa-random"></i>
+                            </a>
+                            <a href="#" data-toggle="modal" data-target="#quickModal"
+                               class="single-btn">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="price-block">
+                    @if (item.DiscountPercent > 0)
+                    {
+                        <span class="price">£@item.DiscountedPrice</span>
+                        <del class="price-old">£@item.Price</del>
+                        <span class="price-discount">@item.DiscountPercent%</span>
+                    }
+                    else
+                    {
+                        <span class="price">£@item.Price</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

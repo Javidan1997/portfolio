@@ -1,0 +1,80 @@
+﻿@model Teacher
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Manage/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body ">
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label asp-for="@Model.Fullname"></label>
+                        <input asp-for="@Model.Fullname" class="form-control" placeholder="Fullname">
+                        <span asp-validation-for="@Model.Fullname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="@Model.Experience"></label>
+                        <input asp-for="@Model.Experience" class="form-control" placeholder="Experience">
+                        <span asp-validation-for="@Model.Experience" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="@Model.Degree"></label>
+                        <input asp-for="@Model.Degree" class="form-control" placeholder="Degree">
+                        <span asp-validation-for="@Model.Degree" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="@Model.Faculty"></label>
+                        <input asp-for="@Model.Faculty" class="form-control" placeholder="Faculty">
+                        <span asp-validation-for="@Model.Faculty" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="@Model.Hobbies"></label>
+                        <input asp-for="@Model.Hobbies" class="form-control" placeholder="Hobbies">
+                        <span asp-validation-for="@Model.Hobbies" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="@Model.Mail"></label>
+                        <input asp-for="@Model.Mail" class="form-control" placeholder="Mail">
+                        <span asp-validation-for="@Model.Mail" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="@Model.Numer"></label>
+                        <input asp-for="@Model.Numer" class="form-control" placeholder="Numer">
+                        <span asp-validation-for="@Model.Numer" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="@Model.Skype"></label>
+                        <input asp-for="@Model.Skype" class="form-control" placeholder="Skype">
+                        <span asp-validation-for="@Model.Skype" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="@Model.Title"></label>
+                        <input asp-for="@Model.Title" class="form-control" placeholder="Title">
+                        <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group col-md-4">
+                        <label asp-for="@Model.Abouut"></label>
+                        <textarea asp-for="@Model.Abouut" class="form-control" placeholder="About" rows="3"></textarea>
+                        <span asp-validation-for="@Model.Abouut" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="@Model.File"></label>
+                        <input accept="image/png,image/jpeg" asp-for="@Model.File" class="form-control" placeholder="Photo">
+                        <span asp-validation-for="@Model.File" class="text-danger"></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script></script>
+}

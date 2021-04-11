@@ -1,0 +1,58 @@
+﻿@model MemberRegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="login-register-area pt-60 pb-65">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                <div class="login-register-wrapper">
+                    <div class="login-register-tab-list nav">
+
+                        <a data-toggle="tab" href="#lg2">
+                            <h4> register </h4>
+                        </a>
+                    </div>
+                    <div class="tab-content">
+                        <div id="lg2" class="tab-pane active">
+                            <div class="login-form-container">
+                                <div class="login-register-form">
+                                    <form method="post">
+                                        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+                                        <input asp-for="@Model.UserName" placeholder="Username">
+                                        <span class="text-danger" asp-validation-for="@Model.UserName"></span>
+
+                                        <input asp-for="@Model.Email," placeholder="Email">
+                                        <span class="text-danger" asp-validation-for="@Model.Email"></span>
+
+                                        <input asp-for="@Model.FullName," placeholder="Full name">
+                                        <span class="text-danger" asp-validation-for="@Model.FullName"></span>
+
+                                        <input asp-for="@Model.Password" placeholder="Password">
+                                        <span class="text-danger" asp-validation-for="@Model.Password"></span>
+
+                                        <input asp-for="@Model.ConfirmPassword," placeholder="Confirm password">
+                                        <span class="text-danger" asp-validation-for="@Model.ConfirmPassword"></span>
+
+                                        <div class="button-box">
+                                            <button type="submit"><span>Register</span></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+}
